@@ -5,5 +5,5 @@ export interface IProductRepository {
     listAll(userId: string);
     productInfo(id: string);
     delete(id: string);
-    update(id: string);
+    update(product: Product);
 }

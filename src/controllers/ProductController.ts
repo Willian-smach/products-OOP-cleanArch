@@ -3,6 +3,7 @@ import { AllProducts } from "../core/usecases/product/AllProducts";
 import { DeleteProduct } from "../core/usecases/product/DeleteProduct";
 import { NewProduct } from "../core/usecases/product/NewProduct";
 import { ProductInfo } from "../core/usecases/product/ProductInfo";
+import { UpdateProduct } from "../core/usecases/product/UpdateProduct";
 import { ProductRepositoryMemory } from "../infra/repositories/ProductRepositoryMemory";
 import { ProductRepositorySQL } from "../infra/repositories/ProductRepositorySQL";
 
@@ -33,5 +34,12 @@ export class ProductController {
         const repositorySQL = new ProductRepositorySQL();
         const deleteProductMethod = new DeleteProduct(repositorySQL);
         return await deleteProductMethod.exec(params.id);
+    }
+
+    static async updateProduct(params, body) {
+        const repositorySQL = new ProductRepositorySQL();
+        const updateProductMethod = new UpdateProduct(repositorySQL);
+        const product = ProductAdapter.create(body.name, body.value, body.category, body.userId, params.id);
+        return await updateProductMethod.exec(product);
     }
 }

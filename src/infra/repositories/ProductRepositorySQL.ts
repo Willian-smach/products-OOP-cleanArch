@@ -41,8 +41,14 @@ export class ProductRepositorySQL implements IProductRepository {
             return false;
         }
     }
-    update(id: string) {
-        throw new Error("Method not implemented.");
+    async update(product: Product) {
+        try {
+            await db.query(`UPDATE public.produtos SET name = $2, category = $3, value = $4 where "id" = $1`, [product.Id, product.name, product.category, product.value]);
+            return true;
+        } catch (error) {
+            //console.log(error);
+            return false;
+        }
     }
 
 }
