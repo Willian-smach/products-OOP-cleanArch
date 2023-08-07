@@ -18,6 +18,7 @@ app.use(routes);
 routes.post("/product", ExpressAdapter.create(ProductController.newProduct));
 routes.get("/product/:id", ExpressAdapter.create(ProductController.productInfo));
 routes.get("/products/:id", ExpressAdapter.create(ProductController.listProducts));
+routes.delete("/product/:id", ExpressAdapter.create(ProductController.deleteProduct));
 
 app.listen(PORT, () => {
     console.log(`Express run on port: ${PORT}`);

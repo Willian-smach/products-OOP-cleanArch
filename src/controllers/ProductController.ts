@@ -1,5 +1,6 @@
 import { ProductAdapter } from "../adapters/ProductAdapter";
 import { AllProducts } from "../core/usecases/product/AllProducts";
+import { DeleteProduct } from "../core/usecases/product/DeleteProduct";
 import { NewProduct } from "../core/usecases/product/NewProduct";
 import { ProductInfo } from "../core/usecases/product/ProductInfo";
 import { ProductRepositoryMemory } from "../infra/repositories/ProductRepositoryMemory";
@@ -26,5 +27,11 @@ export class ProductController {
         const repositorySQL = new ProductRepositorySQL();
         const productInfoMethod = new ProductInfo(repositorySQL);
         return await productInfoMethod.exec(params.id);
+    }
+
+    static async deleteProduct(params, body) {
+        const repositorySQL = new ProductRepositorySQL();
+        const deleteProductMethod = new DeleteProduct(repositorySQL);
+        return await deleteProductMethod.exec(params.id);
     }
 }

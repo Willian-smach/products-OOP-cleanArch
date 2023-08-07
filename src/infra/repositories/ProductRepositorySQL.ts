@@ -1,6 +1,7 @@
 import { Product } from "../../core/entities/Product";
 import { IProductRepository } from "./interfaces/IProductRepository";
 import { db } from "../db/db";
+import { ProductAdapter } from "../../adapters/ProductAdapter";
 
 export class ProductRepositorySQL implements IProductRepository {
     async create(product: Product) {
@@ -28,11 +29,17 @@ export class ProductRepositorySQL implements IProductRepository {
         const product = await db.oneOrNone(`SELECT * FROM public.produtos where "id" = $1`, [id]);
         console.log(product)
         if(product) {
-            return product;
+            return ProductAdapter.create(product.name, product.value, product.category, product.userID, product.id);
         }
     }
-    delete(id: string) {
-        throw new Error("Method not implemented.");
+    async delete(id: string) {
+        try {
+            await db.query(`DELETE FROM public.produtos where "id" = $1`, [id]);
+            return true;
+        } catch (error) {
+            //console.log(error);
+            return false;
+        }
     }
     update(id: string) {
         throw new Error("Method not implemented.");
