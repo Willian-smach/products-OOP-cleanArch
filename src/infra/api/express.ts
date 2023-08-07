@@ -3,6 +3,8 @@ import { Router } from "express";
 import cors from 'cors';
 import { ExpressAdapter } from "../../adapters/ExpressAdapter";
 import { ProductController } from "../../controllers/ProductController";
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const PORT = 3005;
@@ -14,8 +16,8 @@ app.use(routes);
 
 // Rotas de produto
 routes.post("/product", ExpressAdapter.create(ProductController.newProduct));
-routes.get("/product/:id", ExpressAdapter.create(ProductController.listProducts));
-routes.get("/products/:id", ExpressAdapter.create(ProductController.productInfo));
+routes.get("/product/:id", ExpressAdapter.create(ProductController.productInfo));
+routes.get("/products/:id", ExpressAdapter.create(ProductController.listProducts));
 
 app.listen(PORT, () => {
     console.log(`Express run on port: ${PORT}`);

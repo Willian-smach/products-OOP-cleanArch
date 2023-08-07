@@ -1,4 +1,4 @@
-import { IProductRepository } from "../../infra/repositories/interfaces/IProductRepository";
+import { IProductRepository } from "../../../infra/repositories/interfaces/IProductRepository";
 
 export class AllProducts {
     private _repository: IProductRepository;
